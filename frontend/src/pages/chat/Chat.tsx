@@ -65,7 +65,6 @@ const Chat = () => {
   const [errorMsg, setErrorMsg] = useState<ErrorMessage | null>()
   const [logo, setLogo] = useState('')
   const [answerId, setAnswerId] = useState<string>('')
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const errorDialogContentProps = {
     type: DialogType.close,
@@ -758,15 +757,6 @@ const Chat = () => {
     )
   }
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      // Handle the file upload logic here
-      console.log('File uploaded:', file);
-    }
-  };
-
   return (
     <div className={styles.container} role="main">
       {showAuthMessage ? (
@@ -798,26 +788,6 @@ const Chat = () => {
         </Stack>
       ) : (
         <Stack horizontal className={styles.chatRoot}>
-          <CommandBarButton
-            iconProps={{ iconName: 'Add' }}
-            text="New Chat"
-            onClick={() => console.log('New Chat')}
-          />
-          <CommandBarButton
-            iconProps={{ iconName: 'Upload' }}
-            text="Upload File"
-            onClick={() => {
-              if (fileInputRef.current) {
-                fileInputRef.current.click();
-              }
-            }}
-          />
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileUpload}
-          />
           <div className={styles.chatContainer}>
             {!messages || messages.length < 1 ? (
               <Stack className={styles.chatEmptyState}>
